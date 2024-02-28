@@ -21,11 +21,11 @@ export class UserService {
 
 
   getEmployees(): Observable<any> {
-    return this.http.get('http://127.0.0.1:3000/users/employees?sortBy=name&sortOrder=-1', this.httpOptions);
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/users/employees?sortBy=name&sortOrder=-1', this.httpOptions);
   }
 
   newUser({ formData }: { formData: FormData; }): Observable<any> {
-    return this.http.post('http://127.0.0.1:3000/auth/register', formData);
+    return this.http.post('https://m1p11mean-aro-kenny-1.onrender.com/auth/register', formData);
   }
 
   login({ data }: { data: any; }): Observable<any> {
@@ -35,7 +35,7 @@ export class UserService {
       withCredentials: true,
       observe: 'response' as 'response'
     };
-    return this.http.post('http://127.0.0.1:3000/auth/login', data, httpOptions);
+    return this.http.post('https://m1p11mean-aro-kenny-1.onrender.com/auth/login', data, httpOptions);
   }
 
   test(): Observable<any> {
@@ -45,7 +45,7 @@ export class UserService {
       withCredentials: true,
       observe: 'response' as 'response'
     };
-    return this.http.get('http://127.0.0.1:3000/protected', httpOptions);
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/protected', httpOptions);
   }
 
   isLoggedIn(): boolean {
@@ -56,9 +56,9 @@ export class UserService {
   }
 
   logout(): Observable<any> {
-    return this.http.post('http://127.0.0.1:3000/auth/logout', null, this.httpOptions);
+    return this.http.post('https://m1p11mean-aro-kenny-1.onrender.com/auth/logout', null, this.httpOptions);
   }
   myProfile(): Observable<any> {
-    return this.http.get('http://127.0.0.1:3000/users/emp/profile', this.httpOptions);
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/users/emp/profile', this.httpOptions);
   }
 }

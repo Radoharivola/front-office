@@ -15,15 +15,15 @@ export class PreferenceService {
   };
   constructor(private http: HttpClient) { }
   getPrefServices(): Observable<any> {
-    return this.http.get('http://127.0.0.1:3000/preference/my-pref-services', this.httpOptions);
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/preference/my-pref-services', this.httpOptions);
   }
   getPrefEmps(): Observable<any> {
-    return this.http.get('http://127.0.0.1:3000/preference/my-pref-emps', this.httpOptions);
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/preference/my-pref-emps', this.httpOptions);
   }
   updatePrefService(service: any): Observable<any> {
-    return this.http.post('http://127.0.0.1:3000/preference/update-pref-service',service,this.httpOptions);
+    return this.http.post('https://m1p11mean-aro-kenny-1.onrender.com/preference/update-pref-service',service,this.httpOptions);
   }
   updatePrefEmp(emp: any): Observable<any> {
-    return this.http.post('http://127.0.0.1:3000/preference/update-pref-emp',emp,this.httpOptions);
+    return this.http.post('https://m1p11mean-aro-kenny-1.onrender.com/preference/update-pref-emp',emp,this.httpOptions);
   }
 }

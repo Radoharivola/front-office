@@ -9,6 +9,6 @@ export class ServiceService {
   constructor(private http: HttpClient) { }
   getServices(): Observable<any> {
     console.log('getting services')
-    return this.http.get('http://127.0.0.1:3000/service/services');
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/service/services');
   }
 }

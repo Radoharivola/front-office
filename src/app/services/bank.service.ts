@@ -15,10 +15,10 @@ export class BankService {
   };
   constructor(private http: HttpClient) { }
   refill(data: any): Observable<any> {
-    return this.http.post('http://127.0.0.1:3000/bank/refill', data, this.httpOptions);
+    return this.http.post('https://m1p11mean-aro-kenny-1.onrender.com/bank/refill', data, this.httpOptions);
   }
   get(): Observable<any> {
-    return this.http.get('http://127.0.0.1:3000/bank/', this.httpOptions);
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/bank/', this.httpOptions);
 
   }
 }

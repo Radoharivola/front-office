@@ -11,6 +11,6 @@ export class OfferService {
 
 
   getOffers({ date }: { date: string }): Observable<any> {
-    return this.http.get('http://127.0.0.1:3000/offer/offers/' + date);
+    return this.http.get('https://m1p11mean-aro-kenny-1.onrender.com/offer/offers/' + date);
   }
 }
