@@ -6,6 +6,8 @@ import { Router } from "@angular/router";
 import { PreferenceService } from '../../services/preference.service';
 import { ServiceService } from "src/app/services/service.service";
 import { BankService } from '../../services/bank.service';
+import { NgxSpinnerService } from "ngx-spinner";
+
 @Component({
   selector: "app-profilepage",
   templateUrl: "profilepage.component.html",
@@ -34,38 +36,53 @@ export class ProfilepageComponent implements OnInit, OnDestroy {
   prefEmps: any[] = [];
   refill: number = 0;
   solde: any;
-  constructor(private rdvservice: RdvService, private userService: UserService, private sanitizer: DomSanitizer, private route: Router, private preferenceservice: PreferenceService, private serviceservice: ServiceService, private bankservice: BankService) { }
+  constructor(private spinner: NgxSpinnerService, private rdvservice: RdvService, private userService: UserService, private sanitizer: DomSanitizer, private route: Router, private preferenceservice: PreferenceService, private serviceservice: ServiceService, private bankservice: BankService) { }
 
   ngOnInit() {
     var body = document.getElementsByTagName("body")[0];
     body.classList.add("profile-page");
-    this.fetchRdv(this.page);
-    this.fetchEmp();
-    this.fetcPrefServices();
-    this.fetcPrefEmps();
-    this.fetchServices();
-    this.fetchEmployees();
-    this.fetchBank();
+
+    Promise.all([this.spinner.show(), this.fetchRdv(this.page),
+    this.fetchEmp(),
+    this.fetcPrefServices(),
+    this.fetcPrefEmps(),
+    this.fetchServices(),
+    this.fetchEmployees(),
+    this.fetchBank(),]).then(() => {
+      this.spinner.hide()
+    }).catch(err => {
+      this.spinner.hide();
+      console.log(err);
+    })
   }
 
   refillBank() {
-    console.log(this.refill);
+    this.spinner.show();
     const data = {
       solde: this.refill
     }
     this.bankservice.refill(data).subscribe(data => {
-      console.log(data);
-      this.fetchBank();
+      Promise.all([this.fetchBank()]).then(() => {
+        this.spinner.hide();
+      }).catch(err => {
+        this.spinner.hide();
+        console.log(err);
+      })
     }, err => {
       console.log(err);
     });
   }
   fetchBank() {
-    this.bankservice.get().subscribe(res => {
-      this.solde = res.body.solde;
-    }, err => {
-      console.log(err);
-    });
+    return new Promise<void>((resolve, reject) => {
+
+      this.bankservice.get().subscribe(res => {
+        this.solde = res.body.solde;
+        resolve();
+      }, err => {
+        console.log(err);
+        reject();
+      });
+    })
   }
   isInPrefServices(service: any): boolean {
     return this.prefServices.some(pref => pref.service._id === service._id);
@@ -76,52 +93,76 @@ export class ProfilepageComponent implements OnInit, OnDestroy {
   }
 
   updatePrefService(service: any) {
+    this.spinner.show();
     const data = {
       service: service
     }
     this.preferenceservice.updatePrefService(data).subscribe(data => {
-      console.log(data);
-      this.fetcPrefServices();
-    }, err => console.log(err));
+      Promise.all([this.fetcPrefServices()]).then(() => {
+        this.spinner.hide();
+      }).catch(err => {
+        this.spinner.hide();
+        console.log(err);
+      })
+    }, err => { this.spinner.hide(); console.log(err); });
   }
   updatePrefEmp(emp: any) {
+    this.spinner.show();
     const data = {
       employee: emp
     }
     this.preferenceservice.updatePrefEmp(data).subscribe(data => {
-      console.log(data);
-      this.fetcPrefEmps();
+      Promise.all([this.fetcPrefEmps()]).then(() => {
+        this.spinner.hide();
+      }).catch(err => {
+        this.spinner.hide();
+        console.log(err);
+      })
 
-    }, err => console.log(err));
+    }, err => { this.spinner.hide(); console.log(err); });
   }
   fetchServices() {
-    this.serviceservice.getServices().subscribe(data => {
-      this.services = data.services;
-      console.log(data);
-    }, err => console.log(err));
+    return new Promise<void>((resolve, reject) => {
+
+      this.serviceservice.getServices().subscribe(data => {
+        this.services = data.services;
+        resolve();
+      }, err => { reject(); console.log(err); });
+    })
   }
   fetchEmployees() {
-    this.userService.getEmployees().subscribe(data => {
-      console.log(data.body.employees);
-      this.employees = data.body.employees;
-    });
+    return new Promise<void>((resolve, reject) => {
+
+      this.userService.getEmployees().subscribe(data => {
+        this.employees = data.body.employees;
+        resolve();
+      }, err => { reject(); console.log(err); });
+    })
   }
 
   fetcPrefServices() {
-    this.preferenceservice.getPrefServices().subscribe(res => {
-      this.prefServices = res.body.prefServices;
-      console.log(res);
-    }, err => {
-      console.log(err);
-    });
+    return new Promise<void>((resolve, reject) => {
+
+      this.preferenceservice.getPrefServices().subscribe(res => {
+        this.prefServices = res.body.prefServices;
+        resolve();
+      }, err => {
+        console.log(err);
+        reject();
+      });
+    })
   }
   fetcPrefEmps() {
-    this.preferenceservice.getPrefEmps().subscribe(res => {
-      this.prefEmps = res.body.prefEmps;
-      console.log(res);
-    }, err => {
-      console.log(err);
-    });
+    return new Promise<void>((resolve, reject) => {
+
+      this.preferenceservice.getPrefEmps().subscribe(res => {
+        this.prefEmps = res.body.prefEmps;
+        resolve();
+      }, err => {
+        console.log(err);
+        reject();
+      });
+    })
   }
   ngOnDestroy() {
     var body = document.getElementsByTagName("body")[0];
@@ -129,29 +170,41 @@ export class ProfilepageComponent implements OnInit, OnDestroy {
   }
 
   flipDateSort() {
+    this.spinner.show();
     this.dateSort = this.dateSort * -1;
     this.page = 1;
-    this.fetchRdv(1);
+
+    Promise.all([this.fetchRdv(1)]).then(() => {
+      this.spinner.hide();
+    }).catch(err => {
+      this.spinner.hide();
+      console.log(err);
+    })
   }
 
   fetchRdv(page) {
-    const today = new Date();
-    const dateInit = today.toISOString();
+    return new Promise<void>((resolve, reject) => {
 
-    const dateFin = new Date("20100-12-12").toISOString();
+      const today = new Date();
+      const dateInit = today.toISOString();
 
-    this.rdvservice.getRdv({ 'dateInit': dateInit, 'dateFin': dateFin, 'limit': this.limit, 'page': page, 'dateSort': this.dateSort }).subscribe(response => {
-      if (this.page == 1) {
-        this.rdvs = response.body.rdvs;
-        console.log(response.body.rdvs);
-      } else {
-        this.rdvs = this.rdvs.concat(response.body.rdvs);
-      }
-      this.totalPages = response.body.totalPages;
-    },
-      error => {
-        console.log(error);
-      });
+      const dateFin = new Date("20100-12-12").toISOString();
+
+      this.rdvservice.getRdv({ 'dateInit': dateInit, 'dateFin': dateFin, 'limit': this.limit, 'page': page, 'dateSort': this.dateSort }).subscribe(response => {
+        if (this.page == 1) {
+          this.rdvs = response.body.rdvs;
+          console.log(response.body.rdvs);
+        } else {
+          this.rdvs = this.rdvs.concat(response.body.rdvs);
+        }
+        this.totalPages = response.body.totalPages;
+        resolve();
+      },
+        error => {
+          console.log(error);
+          reject();
+        });
+    })
   }
   onContainerScroll() {
     const container = document.querySelector('.scrollable-table-container');
@@ -159,7 +212,13 @@ export class ProfilepageComponent implements OnInit, OnDestroy {
       if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
         if (this.page < this.totalPages) {
           this.page += 1;
-          this.fetchRdv(this.page);
+          Promise.all([this.spinner.show(), this.fetchRdv(this.page)]).then(() => {
+
+            this.spinner.hide();
+          }).catch(err => {
+            this.spinner.hide()
+            console.log(err);
+          })
         }
       }
     }
@@ -180,47 +239,60 @@ export class ProfilepageComponent implements OnInit, OnDestroy {
   // }
 
   delete() {
+    this.spinner.show();
     this.rdvservice.delete(this.temp).subscribe(response => {
       console.log(response);
       this.page = 1;
-      this.fetchRdv(1);
+
+      Promise.all([this.fetchRdv(1)]).then(()=>{
+        this.spinner.hide();
+      }).catch(err => {
+        this.spinner.hide();
+        console.log(err);
+      })
       this.temp = '';
-    }, error => { console.log(error); });
+    }, error => { this.spinner.hide(); console.log(error); });
   }
   user: any;
   image: any;
   files: any[];
 
   fetchEmp() {
-    this.userService.myProfile().subscribe(data => {
-      this.user = data.body.employee;
-      console.log(this.user.lastName);
-      const base64Image = data.body.profilePicture;
-      const byteCharacters = atob(base64Image);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'image/jpeg' });
-      const imageFile = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
-      this.image = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(imageFile));
-      this.files = [];
-      this.files.push(imageFile);
-      console.log(this.files[0]);
-    }, err => {
-      this.userService.logout().subscribe(response => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        this.route.navigate(['/login']);
+    return new Promise<void>((resolve, reject) => {
+
+      this.userService.myProfile().subscribe(data => {
+        this.user = data.body.employee;
+        console.log(this.user.lastName);
+        const base64Image = data.body.profilePicture;
+        const byteCharacters = atob(base64Image);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/jpeg' });
+        const imageFile = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
+        this.image = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(imageFile));
+        this.files = [];
+        this.files.push(imageFile);
+        console.log(this.files[0]);
+        resolve();
       }, err => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        this.route.navigate(['/login']);
+        this.userService.logout().subscribe(response => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('username');
+          this.route.navigate(['/login']);
+        }, err => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('username');
+          this.route.navigate(['/login']);
+          console.log(err);
+        });
         console.log(err);
+        reject();
+
       });
-      console.log(err);
-    });
+    })
   }
 
   // fetchServices() {

@@ -66,15 +66,20 @@ export class IndexComponent implements OnInit, OnDestroy {
     body.classList.remove("index-page");
   }
   fetchOffers() {
-    this.offerservice.getOffers({ 'date': new Date().toISOString() }).subscribe(
-      response => {
-        console.log(response.offers);
-        this.offers = response.offers;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    return new Promise<void>((resolve, reject) => {
+
+      this.offerservice.getOffers({ 'date': new Date().toISOString() }).subscribe(
+        response => {
+          console.log(response.offers);
+          this.offers = response.offers;
+          resolve();
+        },
+        error => {
+          reject();
+          console.log(error);
+        }
+      );
+    })
   }
 
   setSelectedServices(services: any[], reduction: number) {
@@ -89,6 +94,9 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.serviceService.getServices().subscribe(data => {
         this.services = data.services;
         resolve();
+      }, err => {
+        console.log(err);
+        reject();
       });
     })
 
@@ -99,6 +107,9 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.userService.getEmployees().subscribe(data => {
         this.employees = data.body.employees;
         resolve();
+      },err=>{
+        console.log(err);
+        reject();
       });
     })
 
@@ -121,6 +132,7 @@ export class IndexComponent implements OnInit, OnDestroy {
             localStorage.removeItem('uToken');
             localStorage.removeItem('username');
             this.route.navigate(['/login']);
+            reject();
           }, err => {
             console.log(err);
           }
@@ -149,6 +161,7 @@ export class IndexComponent implements OnInit, OnDestroy {
         resolve();
       },
         error => {
+          reject();
           console.log(error);
         });
     })
@@ -157,7 +170,12 @@ export class IndexComponent implements OnInit, OnDestroy {
   flipDateSort() {
     this.dateSort = this.dateSort * -1;
     this.page = 1;
-    this.fetchRdvHistory(1);
+    Promise.all([this.spinner.show(), this.fetchRdvHistory(1)]).then(() => {
+      this.spinner.hide();
+    }).catch(error => {
+      console.log(error);
+      this.spinner.hide();
+    });
   }
 
   onContainerScroll() {
@@ -166,7 +184,12 @@ export class IndexComponent implements OnInit, OnDestroy {
       if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
         if (this.page < this.totalPages) {
           this.page += 1;
-          this.fetchRdvHistory(this.page);
+          Promise.all([this.spinner.show(), this.fetchRdvHistory(this.page)]).then(() => {
+            this.spinner.hide();
+          }).catch(error => {
+            console.log(error);
+            this.spinner.hide();
+          })
         }
       }
     }
@@ -216,6 +239,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.message = "Veuillez choisir au moins un service!";
       return;
     } else {
+      this.spinner.show();
       const data = {
         "client": this.client,
         "employee": this.formData.employee,
@@ -232,10 +256,16 @@ export class IndexComponent implements OnInit, OnDestroy {
             this.success = false;
           }, 5000);
           this.message = response.message;
-          this.fetchTodaysRdv();
+          Promise.all([this.fetchTodaysRdv()]).then(() => {
+            this.spinner.hide();
+          }).catch(err => {
+            this.spinner.hide();
+            console.log(err);
+          })
           // console.log(response);
         },
         error => {
+          this.spinner.hide();
           this.success = false;
           this.error = true;
           setTimeout(() => {
@@ -263,10 +293,17 @@ export class IndexComponent implements OnInit, OnDestroy {
   // }
 
   delete() {
+    this.spinner.show();
     this.rdvservice.delete(this.temp).subscribe(response => {
+
       this.page = 1;
-      this.fetchTodaysRdv();
+      Promise.all([this.fetchTodaysRdv()]).then(() => {
+        this.spinner.hide();
+      }).catch(err => {
+        this.spinner.hide();
+        console.log(err);
+      })
       this.temp = '';
-    }, error => { console.log(error); });
+    }, error => { this.spinner.hide(); console.log(error); });
   }
 }

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": " ng build --base-href 'https://Radoharivola.github.io/front-office/' --project=front-office",
+    "build": " ng build --base-href=https://Radoharivola.github.io/front-office/ --project=front-office",
     "description": "BLK Design System Angular: Free Angular Design System For Bootstrap 4 and Angular",
     "test": "ng test",
     "lint": "ng lint",
