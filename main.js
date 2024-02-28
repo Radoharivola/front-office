@@ -449,7 +449,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"wrapper\">\r\n  <div class=\"page-header\">\r\n    <img class=\"dots\" src=\"assets/img/dots.png\" />\r\n\r\n    <img class=\"path\" src=\"assets/img/path4.png\" />\r\n\r\n    <div class=\"container align-items-center\">\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-lg-12 col-md-12 ml-auto mr-auto\">\r\n          <div class=\"card card-coin card-plain\">\r\n            <div class=\"card-header\">\r\n              <img class=\"img-center img-fluid rounded-circle\" [src]=\"image\" />\r\n\r\n              <!-- <h4 class=\"title\">{{user.firstName}} {{user.lastName}}</h4> -->\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <tabset class=\"nav-tabs-danger justify-content-center tab-subcategories\">\r\n                <tab>\r\n                  <ng-template tabHeading>\r\n                    <i class=\"tim-icons icon-notes\"> </i> historique\r\n                  </ng-template>\r\n                  <div *ngIf=\"rdvs && rdvs.length > 0; else noRdv\" class=\"scrollable-table-container\"\r\n                    (scroll)=\"onContainerScroll()\">\r\n                    <table class=\"table\" id=\"plain-table\">\r\n                      <thead class=\"text-danger\">\r\n                        <tr>\r\n                          <th class=\"header\"><button class=\"btn btn-link btn-danger mr-1\"\r\n                              (click)=\"flipDateSort()\">Date</button></th>\r\n                          <th class=\"header\">services</th>\r\n                          <th class=\"header\">employé</th>\r\n                        </tr>\r\n                      </thead>\r\n                      <tbody>\r\n                        <tr *ngFor=\"let rdv of rdvs\">\r\n                          <td>{{rdv.date | relativeTime}}</td>\r\n                          <td>\r\n                            <ul>\r\n                              <li *ngFor=\"let service of rdv.services\">\r\n                                <p class=\"text-white mt-4\">{{service.name}}</p>\r\n                              </li>\r\n                            </ul>\r\n                          </td>\r\n                          <td>{{rdv.employee.firstName}} {{rdv.employee.lastName}}</td>\r\n                          <td>\r\n                            <!-- <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\" (click)=\"myModal.show();loadRdvData(rdv._id)\"> -->\r\n                            <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\"\r\n                              (click)=\"myModal.show();\">\r\n                              <i class=\"tim-icons icon-settings-gear-63\"> </i>\r\n                            </button>\r\n                            <!-- <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" (click)=\"delete(rdv._id)\">\r\n                              <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                            </button> -->\r\n                            <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" data-target=\"#myModal1\"\r\n                              (click)=\"myModal1.show();tempId(rdv._id)\">\r\n                              <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                            </button>\r\n\r\n\r\n                          </td>\r\n                        </tr>\r\n                      </tbody>\r\n                    </table>\r\n\r\n                  </div>\r\n                  <ng-template #noRdv>\r\n                    <div class=\"text-muted text-center\">\r\n                      <p>Aucun rendez-vous</p>\r\n                    </div>\r\n\r\n\r\n                  </ng-template>\r\n                </tab>\r\n\r\n                <tab heading=\"Employés\">\r\n                  <div class=\"scrollable-table-container\">\r\n                    <div *ngIf=\"prefEmps && prefEmps.length > 0; else noPE\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">employé pref</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <tr *ngFor=\"let pref of prefEmps\">\r\n\r\n                            <td>{{pref.employee.firstName}} {{pref.employee.lastName}}</td>\r\n                            <td>\r\n                              <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" data-target=\"#myModal1\"\r\n                                (click)=\"updatePrefEmp(pref.employee)\">\r\n                                <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                              </button>\r\n\r\n\r\n                            </td>\r\n                          </tr>\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noPE>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun employé préféré</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                    <hr />\r\n                    <div *ngIf=\"employees && employees.length > 0; else noEmp\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">employé</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <ng-container *ngFor=\"let emp of employees\">\r\n                            <tr *ngIf=\"!isInPrefEmps(emp)\">\r\n                              <td>{{emp.firstName}} {{emp.lastName}}</td>\r\n                              <td>\r\n                                <!-- <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\" (click)=\"myModal.show();loadRdvData(rdv._id)\"> -->\r\n                                <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\"\r\n                                  (click)=\"updatePrefEmp(emp)\">\r\n                                  <i class=\"tim-icons icon-heart-2\"> </i>\r\n                                </button>\r\n\r\n                              </td>\r\n                            </tr>\r\n                          </ng-container>\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noEmp>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun employé</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                  </div>\r\n                </tab>\r\n                <tab heading=\"Services\">\r\n                  <div class=\"scrollable-table-container\">\r\n                    <div *ngIf=\"prefServices && prefServices.length > 0; else noPS\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">Services préférés</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <tr *ngFor=\"let pref of prefServices\">\r\n                            <td>{{pref.service.name}}</td>\r\n                            <td>\r\n                              <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" data-target=\"#myModal1\"\r\n                                (click)=\"updatePrefService(pref.service)\">\r\n                                <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                              </button>\r\n                            </td>\r\n                          </tr>\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noPS>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun service préféré</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                    <hr />\r\n                    <div *ngIf=\"services && services.length > 0; else noS\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">Service</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <ng-container *ngFor=\"let service of services\">\r\n\r\n                            <tr *ngIf=\"!isInPrefServices(service)\">\r\n\r\n                              <td>{{service.name}}</td>\r\n                              <td>\r\n                                <!-- <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\" (click)=\"myModal.show();loadRdvData(rdv._id)\"> -->\r\n                                <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\"\r\n                                  (click)=\"updatePrefService(service)\">\r\n                                  <i class=\"tim-icons icon-heart-2\"> </i>\r\n                                </button>\r\n\r\n                              </td>\r\n                            </tr>\r\n                          </ng-container>\r\n\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noS>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun service</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                  </div>\r\n                </tab>\r\n                <tab heading=\"Mon profil\">\r\n                  <div class=\"scrollable-table-container\">\r\n                    <div class=\"text-muted text-center\">\r\n                      <p>Solde: {{solde}}</p>\r\n                    </div>\r\n                    <input [(ngModel)]=\"refill\" type=\"number\" min=\"10000\">\r\n                    <a (click)=\"refillBank()\">recharge</a>\r\n\r\n                  </div>\r\n                </tab>\r\n              </tabset>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"section\">\r\n    <div class=\"container\">\r\n      <div aria-hidden=\"true\" aria-labelledby=\"myModalLabel\" bsModal class=\"modal fade\" #myModal=\"bs-modal\" id=\"myModal\"\r\n        role=\"dialog\" tabindex=\"-1\">\r\n        <div class=\"modal-dialog\">\r\n          <div class=\"modal-content\">\r\n            <div class=\"modal-header justify-content-center\">\r\n              <button aria-hidden=\"true\" class=\"close\" data-dismiss=\"modal\" type=\"button\" (click)=\"myModal.hide()\">\r\n                <i class=\"tim-icons icon-simple-remove\"> </i>\r\n              </button>\r\n              <h4 class=\"title title-up\">Modifier rendez-vous</h4>\r\n            </div>\r\n            <div class=\"modal-body text-center\">\r\n              EDIT RDV\r\n              <!-- <div class=\"card card-register\">\r\n\r\n                <div class=\"card-body\">\r\n                  <form class=\"form\" (ngSubmit)=\"submitForm()\">\r\n  \r\n                    <div class=\"input-group\">\r\n                      <div class=\"input-group-prepend\">\r\n                        <div class=\"input-group-text\">\r\n                          <i class=\"tim-icons icon-calendar-60\"> </i>\r\n                        </div>\r\n                      </div>\r\n                      <input class=\"form-control\" type=\"datetime-local\" name=\"date\" [(ngModel)]=\"formData.date\"\r\n                        required />\r\n                    </div>\r\n                    <div class=\"input-group\">\r\n                      <div class=\"input-group-prepend\">\r\n                        <div class=\"input-group-text\">\r\n                          <i class=\"tim-icons icon-single-02\"> </i>\r\n                        </div>\r\n                      </div>\r\n                      <select class=\"form-control\" name=\"employee\" [(ngModel)]=\"formData.employee\">\r\n                        <option [ngValue]=\"null\" class=\"form-control\">\r\n                          Non spécifié\r\n                        </option>\r\n                        <option [ngValue]=\"employee._id\" class=\"form-control\" *ngFor=\"let employee of employees;\" [selected]=\"employees[0]._id\">\r\n                          {{ employee.firstName }} {{employee.lastName }}\r\n                        </option>\r\n  \r\n                      </select>\r\n                    </div>\r\n                    <hr />\r\n  \r\n                    <p class=\"category\">Veuillez choisir les Services</p>\r\n                    <span class=\"category\">Total: {{ totalPrice | currency }}</span>\r\n  \r\n                    <div class=\"row\" *ngIf=\"services\">\r\n                      <div class=\"col-md-6\" *ngFor=\"let service of services\">\r\n                        <div class=\"form-check\">\r\n                          <label class=\"form-check-label\">\r\n                            <input class=\"form-check-input\" type=\"checkbox\"\r\n                              (change)=\"updateSelectedServices(service, $event.target.checked)\" />\r\n                            <span class=\"form-check-sign\"> </span> {{service.name}}\r\n                          </label>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <hr />\r\n                    <div class=\"input-group\">\r\n                      <span class=\"category\">Avance (mobile money)</span>\r\n                      <bSwitch [switch-on-color]=\"'blue'\" [switch-on-text]=\"'oui'\" [switch-off-text]=\"'non'\"\r\n                        [switch-off-color]=\"'danger'\" [(ngModel)]=\"isSwitchOn\" name=\"bswitch\"></bSwitch>\r\n                    </div>\r\n                    <div *ngIf=\"isSwitchOn\">\r\n                      <div class=\"input-group\">\r\n                        <div class=\"input-group-prepend\">\r\n                          <div class=\"input-group-text\">\r\n                            <i class=\"tim-icons icon-single-02\"> </i>\r\n                          </div>\r\n                        </div>\r\n                        <input class=\"form-control\" placeholder=\"Numero\" type=\"text\" pattern=\"[0-9]{10}\"\r\n                          title=\"Please enter a valid phone number (10 digits)\" name=\"numero\"\r\n                          [(ngModel)]=\"formData.numero\" required />\r\n                      </div>\r\n                      <div class=\"input-group\">\r\n                        <div class=\"input-group-prepend\">\r\n                          <div class=\"input-group-text\">\r\n                            <i class=\"tim-icons icon-money-coins\"> </i>\r\n                          </div>\r\n                        </div>\r\n                        <input class=\"form-control\" placeholder=\"Montant\" type=\"number\" name=\"paid\"\r\n                          [(ngModel)]=\"formData.paid\" />\r\n                      </div>\r\n                    </div>\r\n                    <alert *ngIf=\"error\" class=\"alert-with-icon\" [type]=\"'warning alert-with-icon'\" [dismissible]=\"true\">\r\n                      <span class=\"tim-icons icon-alert-circle-exc\" data-notify=\"icon\"> </span>\r\n                      <span>\r\n                        <b> Oups! </b> {{message}}\r\n                      </span>\r\n                    </alert>\r\n                    <alert *ngIf=\"success\" class=\"alert-with-icon\" [type]=\"'success alert-with-icon'\"\r\n                      [dismissible]=\"true\">\r\n                      <span class=\"tim-icons icon-check-2\" data-notify=\"icon\"> </span>\r\n                      <span>\r\n                        <b> Yay! </b> {{message}}\r\n                      </span>\r\n                    </alert>\r\n                    <div class=\"input-group\">\r\n                      <input class=\"btn btn-danger btn-round btn-lg\" type=\"submit\" value=\"Valider\" />\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div> -->\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n              <button class=\"btn btn-default\" type=\"button\">Valider</button>\r\n              <button class=\"btn btn-danger\" data-dismiss=\"modal\" type=\"button\" (click)=\"myModal.hide()\">\r\n                Annuler\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div aria-hidden=\"true\" aria-labelledby=\"myModalLabel\" bsModal\r\n        class=\"modal fade modal-mini modal-warning modal-mini\" #myModal1=\"bs-modal\" id=\"myModal1\" role=\"dialog\"\r\n        tabindex=\"-1\">\r\n        <div class=\"modal-dialog\">\r\n          <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n              <p>Supprimer ce rendez-vous?</p>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n              <button class=\"btn btn-link btn-neutral\" type=\"button\" (click)=\"delete();myModal1.hide()\">Oui</button>\r\n              <button class=\"btn btn-link btn-neutral\" data-dismiss=\"modal\" type=\"button\"\r\n                (click)=\"myModal1.hide();tempId('')\">\r\n                Annuler\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"wrapper\">\r\n  <div class=\"page-header\">\r\n    <img class=\"dots\" src=\"assets/img/dots.png\" />\r\n\r\n    <img class=\"path\" src=\"assets/img/path4.png\" />\r\n\r\n    <div class=\"container align-items-center\">\r\n      <div class=\"row\">\r\n\r\n        <div class=\"col-lg-12 col-md-12 ml-auto mr-auto\">\r\n          <div class=\"card card-coin card-plain\">\r\n            <div class=\"card-header\">\r\n              <img class=\"img-center img-fluid rounded-circle\" [src]=\"image\" />\r\n\r\n              <!-- <h4 class=\"title\">{{user.firstName}} {{user.lastName}}</h4> -->\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <tabset class=\"nav-tabs-danger justify-content-center tab-subcategories\">\r\n                <tab>\r\n                  <ng-template tabHeading>\r\n                    <i class=\"tim-icons icon-notes\"> </i> historique\r\n                  </ng-template>\r\n                  <div *ngIf=\"rdvs && rdvs.length > 0; else noRdv\" class=\"scrollable-table-container\"\r\n                    (scroll)=\"onContainerScroll()\">\r\n                    <table class=\"table\" id=\"plain-table\">\r\n                      <thead class=\"text-danger\">\r\n                        <tr>\r\n                          <th class=\"header\"><button class=\"btn btn-link btn-danger mr-1\"\r\n                              (click)=\"flipDateSort()\">Date</button></th>\r\n                          <th class=\"header\">services</th>\r\n                          <th class=\"header\">employé</th>\r\n                        </tr>\r\n                      </thead>\r\n                      <tbody>\r\n                        <tr *ngFor=\"let rdv of rdvs\">\r\n                          <td>{{rdv.date | relativeTime}}</td>\r\n                          <td>\r\n                            <ul>\r\n                              <li *ngFor=\"let service of rdv.services\">\r\n                                <p class=\"text-white mt-4\">{{service.name}}</p>\r\n                              </li>\r\n                            </ul>\r\n                          </td>\r\n                          <td>{{rdv.employee.firstName}} {{rdv.employee.lastName}}</td>\r\n                          <td>\r\n                            <!-- <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\" (click)=\"myModal.show();loadRdvData(rdv._id)\"> -->\r\n                            <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\"\r\n                              (click)=\"myModal.show();\">\r\n                              <i class=\"tim-icons icon-settings-gear-63\"> </i>\r\n                            </button>\r\n                            <!-- <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" (click)=\"delete(rdv._id)\">\r\n                              <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                            </button> -->\r\n                            <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" data-target=\"#myModal1\"\r\n                              (click)=\"myModal1.show();tempId(rdv._id)\">\r\n                              <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                            </button>\r\n\r\n\r\n                          </td>\r\n                        </tr>\r\n                      </tbody>\r\n                    </table>\r\n\r\n                  </div>\r\n                  <ng-template #noRdv>\r\n                    <div class=\"text-muted text-center\">\r\n                      <p>Aucun rendez-vous</p>\r\n                    </div>\r\n\r\n\r\n                  </ng-template>\r\n                </tab>\r\n\r\n                <tab heading=\"Employés\">\r\n                  <div class=\"scrollable-table-container\">\r\n                    <div *ngIf=\"prefEmps && prefEmps.length > 0; else noPE\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">employé pref</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <tr *ngFor=\"let pref of prefEmps\">\r\n\r\n                            <td>{{pref.employee.firstName}} {{pref.employee.lastName}}</td>\r\n                            <td>\r\n                              <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" data-target=\"#myModal1\"\r\n                                (click)=\"updatePrefEmp(pref.employee)\">\r\n                                <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                              </button>\r\n\r\n\r\n                            </td>\r\n                          </tr>\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noPE>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun employé préféré</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                    <hr />\r\n                    <div *ngIf=\"employees && employees.length > 0; else noEmp\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">employé</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <ng-container *ngFor=\"let emp of employees\">\r\n                            <tr *ngIf=\"!isInPrefEmps(emp)\">\r\n                              <td>{{emp.firstName}} {{emp.lastName}}</td>\r\n                              <td>\r\n                                <!-- <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\" (click)=\"myModal.show();loadRdvData(rdv._id)\"> -->\r\n                                <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\"\r\n                                  (click)=\"updatePrefEmp(emp)\">\r\n                                  <i class=\"tim-icons icon-heart-2\"> </i>\r\n                                </button>\r\n\r\n                              </td>\r\n                            </tr>\r\n                          </ng-container>\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noEmp>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun employé</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                  </div>\r\n                </tab>\r\n                <tab heading=\"Services\">\r\n                  <div class=\"scrollable-table-container\">\r\n                    <div *ngIf=\"prefServices && prefServices.length > 0; else noPS\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">Services préférés</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <tr *ngFor=\"let pref of prefServices\">\r\n                            <td>{{pref.service.name}}</td>\r\n                            <td>\r\n                              <button class=\"btn btn-danger btn-icon mr-1\" type=\"button\" data-target=\"#myModal1\"\r\n                                (click)=\"updatePrefService(pref.service)\">\r\n                                <i class=\"tim-icons icon-trash-simple\"> </i>\r\n                              </button>\r\n                            </td>\r\n                          </tr>\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noPS>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun service préféré</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                    <hr />\r\n                    <div *ngIf=\"services && services.length > 0; else noS\" (scroll)=\"onContainerScroll()\">\r\n                      <table class=\"table\" id=\"plain-table\">\r\n                        <thead class=\"text-danger\">\r\n                          <tr>\r\n                            <th class=\"header\">Service</th>\r\n                          </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                          <ng-container *ngFor=\"let service of services\">\r\n\r\n                            <tr *ngIf=\"!isInPrefServices(service)\">\r\n\r\n                              <td>{{service.name}}</td>\r\n                              <td>\r\n                                <!-- <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\" (click)=\"myModal.show();loadRdvData(rdv._id)\"> -->\r\n                                <button class=\"btn btn-default btn-icon mr-1\" type=\"button\" data-target=\"#myModal\"\r\n                                  (click)=\"updatePrefService(service)\">\r\n                                  <i class=\"tim-icons icon-heart-2\"> </i>\r\n                                </button>\r\n\r\n                              </td>\r\n                            </tr>\r\n                          </ng-container>\r\n\r\n                        </tbody>\r\n                      </table>\r\n\r\n                    </div>\r\n                    <ng-template #noS>\r\n                      <div class=\"text-muted text-center\">\r\n                        <p>Aucun service</p>\r\n                      </div>\r\n\r\n\r\n                    </ng-template>\r\n                  </div>\r\n                </tab>\r\n                <tab heading=\"Mon profil\">\r\n                  <div class=\"scrollable-table-container\">\r\n                    <div class=\"text-muted text-center\">\r\n                      <p>Solde: {{solde}}</p>\r\n                    </div>\r\n                    <input [(ngModel)]=\"refill\" type=\"number\" min=\"10000\">\r\n                    <a (click)=\"refillBank()\">recharge</a>\r\n\r\n                  </div>\r\n                </tab>\r\n              </tabset>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <ngx-spinner type=\"ball-scale-multiple\" color=\"#fd5d93\" bdColor=\"rgba(0, 0, 0, 0.8)\"></ngx-spinner>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"container\">\r\n      <div aria-hidden=\"true\" aria-labelledby=\"myModalLabel\" bsModal class=\"modal fade\" #myModal=\"bs-modal\" id=\"myModal\"\r\n        role=\"dialog\" tabindex=\"-1\">\r\n        <div class=\"modal-dialog\">\r\n          <div class=\"modal-content\">\r\n            <div class=\"modal-header justify-content-center\">\r\n              <button aria-hidden=\"true\" class=\"close\" data-dismiss=\"modal\" type=\"button\" (click)=\"myModal.hide()\">\r\n                <i class=\"tim-icons icon-simple-remove\"> </i>\r\n              </button>\r\n              <h4 class=\"title title-up\">Modifier rendez-vous</h4>\r\n            </div>\r\n            <div class=\"modal-body text-center\">\r\n              EDIT RDV\r\n              <!-- <div class=\"card card-register\">\r\n\r\n                <div class=\"card-body\">\r\n                  <form class=\"form\" (ngSubmit)=\"submitForm()\">\r\n  \r\n                    <div class=\"input-group\">\r\n                      <div class=\"input-group-prepend\">\r\n                        <div class=\"input-group-text\">\r\n                          <i class=\"tim-icons icon-calendar-60\"> </i>\r\n                        </div>\r\n                      </div>\r\n                      <input class=\"form-control\" type=\"datetime-local\" name=\"date\" [(ngModel)]=\"formData.date\"\r\n                        required />\r\n                    </div>\r\n                    <div class=\"input-group\">\r\n                      <div class=\"input-group-prepend\">\r\n                        <div class=\"input-group-text\">\r\n                          <i class=\"tim-icons icon-single-02\"> </i>\r\n                        </div>\r\n                      </div>\r\n                      <select class=\"form-control\" name=\"employee\" [(ngModel)]=\"formData.employee\">\r\n                        <option [ngValue]=\"null\" class=\"form-control\">\r\n                          Non spécifié\r\n                        </option>\r\n                        <option [ngValue]=\"employee._id\" class=\"form-control\" *ngFor=\"let employee of employees;\" [selected]=\"employees[0]._id\">\r\n                          {{ employee.firstName }} {{employee.lastName }}\r\n                        </option>\r\n  \r\n                      </select>\r\n                    </div>\r\n                    <hr />\r\n  \r\n                    <p class=\"category\">Veuillez choisir les Services</p>\r\n                    <span class=\"category\">Total: {{ totalPrice | currency }}</span>\r\n  \r\n                    <div class=\"row\" *ngIf=\"services\">\r\n                      <div class=\"col-md-6\" *ngFor=\"let service of services\">\r\n                        <div class=\"form-check\">\r\n                          <label class=\"form-check-label\">\r\n                            <input class=\"form-check-input\" type=\"checkbox\"\r\n                              (change)=\"updateSelectedServices(service, $event.target.checked)\" />\r\n                            <span class=\"form-check-sign\"> </span> {{service.name}}\r\n                          </label>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <hr />\r\n                    <div class=\"input-group\">\r\n                      <span class=\"category\">Avance (mobile money)</span>\r\n                      <bSwitch [switch-on-color]=\"'blue'\" [switch-on-text]=\"'oui'\" [switch-off-text]=\"'non'\"\r\n                        [switch-off-color]=\"'danger'\" [(ngModel)]=\"isSwitchOn\" name=\"bswitch\"></bSwitch>\r\n                    </div>\r\n                    <div *ngIf=\"isSwitchOn\">\r\n                      <div class=\"input-group\">\r\n                        <div class=\"input-group-prepend\">\r\n                          <div class=\"input-group-text\">\r\n                            <i class=\"tim-icons icon-single-02\"> </i>\r\n                          </div>\r\n                        </div>\r\n                        <input class=\"form-control\" placeholder=\"Numero\" type=\"text\" pattern=\"[0-9]{10}\"\r\n                          title=\"Please enter a valid phone number (10 digits)\" name=\"numero\"\r\n                          [(ngModel)]=\"formData.numero\" required />\r\n                      </div>\r\n                      <div class=\"input-group\">\r\n                        <div class=\"input-group-prepend\">\r\n                          <div class=\"input-group-text\">\r\n                            <i class=\"tim-icons icon-money-coins\"> </i>\r\n                          </div>\r\n                        </div>\r\n                        <input class=\"form-control\" placeholder=\"Montant\" type=\"number\" name=\"paid\"\r\n                          [(ngModel)]=\"formData.paid\" />\r\n                      </div>\r\n                    </div>\r\n                    <alert *ngIf=\"error\" class=\"alert-with-icon\" [type]=\"'warning alert-with-icon'\" [dismissible]=\"true\">\r\n                      <span class=\"tim-icons icon-alert-circle-exc\" data-notify=\"icon\"> </span>\r\n                      <span>\r\n                        <b> Oups! </b> {{message}}\r\n                      </span>\r\n                    </alert>\r\n                    <alert *ngIf=\"success\" class=\"alert-with-icon\" [type]=\"'success alert-with-icon'\"\r\n                      [dismissible]=\"true\">\r\n                      <span class=\"tim-icons icon-check-2\" data-notify=\"icon\"> </span>\r\n                      <span>\r\n                        <b> Yay! </b> {{message}}\r\n                      </span>\r\n                    </alert>\r\n                    <div class=\"input-group\">\r\n                      <input class=\"btn btn-danger btn-round btn-lg\" type=\"submit\" value=\"Valider\" />\r\n                    </div>\r\n                  </form>\r\n                </div>\r\n              </div> -->\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n              <button class=\"btn btn-default\" type=\"button\">Valider</button>\r\n              <button class=\"btn btn-danger\" data-dismiss=\"modal\" type=\"button\" (click)=\"myModal.hide()\">\r\n                Annuler\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div aria-hidden=\"true\" aria-labelledby=\"myModalLabel\" bsModal\r\n        class=\"modal fade modal-mini modal-warning modal-mini\" #myModal1=\"bs-modal\" id=\"myModal1\" role=\"dialog\"\r\n        tabindex=\"-1\">\r\n        <div class=\"modal-dialog\">\r\n          <div class=\"modal-content\">\r\n            <div class=\"modal-body\">\r\n              <p>Supprimer ce rendez-vous?</p>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n              <button class=\"btn btn-link btn-neutral\" type=\"button\" (click)=\"delete();myModal1.hide()\">Oui</button>\r\n              <button class=\"btn btn-link btn-neutral\" data-dismiss=\"modal\" type=\"button\"\r\n                (click)=\"myModal1.hide();tempId('')\">\r\n                Annuler\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>");
 
 /***/ }),
 
@@ -1480,11 +1480,15 @@ var IndexComponent = /** @class */ (function () {
     };
     IndexComponent.prototype.fetchOffers = function () {
         var _this = this;
-        this.offerservice.getOffers({ 'date': new Date().toISOString() }).subscribe(function (response) {
-            console.log(response.offers);
-            _this.offers = response.offers;
-        }, function (error) {
-            console.log(error);
+        return new Promise(function (resolve, reject) {
+            _this.offerservice.getOffers({ 'date': new Date().toISOString() }).subscribe(function (response) {
+                console.log(response.offers);
+                _this.offers = response.offers;
+                resolve();
+            }, function (error) {
+                reject();
+                console.log(error);
+            });
         });
     };
     IndexComponent.prototype.setSelectedServices = function (services, reduction) {
@@ -1498,6 +1502,9 @@ var IndexComponent = /** @class */ (function () {
             _this.serviceService.getServices().subscribe(function (data) {
                 _this.services = data.services;
                 resolve();
+            }, function (err) {
+                console.log(err);
+                reject();
             });
         });
     };
@@ -1507,6 +1514,9 @@ var IndexComponent = /** @class */ (function () {
             _this.userService.getEmployees().subscribe(function (data) {
                 _this.employees = data.body.employees;
                 resolve();
+            }, function (err) {
+                console.log(err);
+                reject();
             });
         });
     };
@@ -1525,6 +1535,7 @@ var IndexComponent = /** @class */ (function () {
                     localStorage.removeItem('uToken');
                     localStorage.removeItem('username');
                     _this.route.navigate(['/login']);
+                    reject();
                 }, function (err) {
                     console.log(err);
                 });
@@ -1548,22 +1559,35 @@ var IndexComponent = /** @class */ (function () {
                 _this.totalPages = response.body.totalPages;
                 resolve();
             }, function (error) {
+                reject();
                 console.log(error);
             });
         });
     };
     IndexComponent.prototype.flipDateSort = function () {
+        var _this = this;
         this.dateSort = this.dateSort * -1;
         this.page = 1;
-        this.fetchRdvHistory(1);
+        Promise.all([this.spinner.show(), this.fetchRdvHistory(1)]).then(function () {
+            _this.spinner.hide();
+        }).catch(function (error) {
+            console.log(error);
+            _this.spinner.hide();
+        });
     };
     IndexComponent.prototype.onContainerScroll = function () {
+        var _this = this;
         var container = document.querySelector('.scrollable-table-container');
         if (container) {
             if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
                 if (this.page < this.totalPages) {
                     this.page += 1;
-                    this.fetchRdvHistory(this.page);
+                    Promise.all([this.spinner.show(), this.fetchRdvHistory(this.page)]).then(function () {
+                        _this.spinner.hide();
+                    }).catch(function (error) {
+                        console.log(error);
+                        _this.spinner.hide();
+                    });
                 }
             }
         }
@@ -1613,6 +1637,7 @@ var IndexComponent = /** @class */ (function () {
             return;
         }
         else {
+            this.spinner.show();
             var data = {
                 "client": this.client,
                 "employee": this.formData.employee,
@@ -1628,9 +1653,15 @@ var IndexComponent = /** @class */ (function () {
                     _this.success = false;
                 }, 5000);
                 _this.message = response.message;
-                _this.fetchTodaysRdv();
+                Promise.all([_this.fetchTodaysRdv()]).then(function () {
+                    _this.spinner.hide();
+                }).catch(function (err) {
+                    _this.spinner.hide();
+                    console.log(err);
+                });
                 // console.log(response);
             }, function (error) {
+                _this.spinner.hide();
                 _this.success = false;
                 _this.error = true;
                 setTimeout(function () {
@@ -1655,11 +1686,17 @@ var IndexComponent = /** @class */ (function () {
     // }
     IndexComponent.prototype.delete = function () {
         var _this = this;
+        this.spinner.show();
         this.rdvservice.delete(this.temp).subscribe(function (response) {
             _this.page = 1;
-            _this.fetchTodaysRdv();
+            Promise.all([_this.fetchTodaysRdv()]).then(function () {
+                _this.spinner.hide();
+            }).catch(function (err) {
+                _this.spinner.hide();
+                console.log(err);
+            });
             _this.temp = '';
-        }, function (error) { console.log(error); });
+        }, function (error) { _this.spinner.hide(); console.log(error); });
     };
     IndexComponent.ctorParameters = function () { return [
         { type: ngx_spinner__WEBPACK_IMPORTED_MODULE_9__["NgxSpinnerService"] },
@@ -1920,6 +1957,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_preference_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../services/preference.service */ "+An/");
 /* harmony import */ var src_app_services_service_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/service.service */ "rRxC");
 /* harmony import */ var _services_bank_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../services/bank.service */ "fu6R");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-spinner */ "JqCM");
+
 
 
 
@@ -1932,7 +1971,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProfilepageComponent = /** @class */ (function () {
-    function ProfilepageComponent(rdvservice, userService, sanitizer, route, preferenceservice, serviceservice, bankservice) {
+    function ProfilepageComponent(spinner, rdvservice, userService, sanitizer, route, preferenceservice, serviceservice, bankservice) {
+        this.spinner = spinner;
         this.rdvservice = rdvservice;
         this.userService = userService;
         this.sanitizer = sanitizer;
@@ -1963,35 +2003,49 @@ var ProfilepageComponent = /** @class */ (function () {
         this.refill = 0;
     }
     ProfilepageComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var body = document.getElementsByTagName("body")[0];
         body.classList.add("profile-page");
-        this.fetchRdv(this.page);
-        this.fetchEmp();
-        this.fetcPrefServices();
-        this.fetcPrefEmps();
-        this.fetchServices();
-        this.fetchEmployees();
-        this.fetchBank();
+        Promise.all([this.spinner.show(), this.fetchRdv(this.page),
+            this.fetchEmp(),
+            this.fetcPrefServices(),
+            this.fetcPrefEmps(),
+            this.fetchServices(),
+            this.fetchEmployees(),
+            this.fetchBank(),]).then(function () {
+            _this.spinner.hide();
+        }).catch(function (err) {
+            _this.spinner.hide();
+            console.log(err);
+        });
     };
     ProfilepageComponent.prototype.refillBank = function () {
         var _this = this;
-        console.log(this.refill);
+        this.spinner.show();
         var data = {
             solde: this.refill
         };
         this.bankservice.refill(data).subscribe(function (data) {
-            console.log(data);
-            _this.fetchBank();
+            Promise.all([_this.fetchBank()]).then(function () {
+                _this.spinner.hide();
+            }).catch(function (err) {
+                _this.spinner.hide();
+                console.log(err);
+            });
         }, function (err) {
             console.log(err);
         });
     };
     ProfilepageComponent.prototype.fetchBank = function () {
         var _this = this;
-        this.bankservice.get().subscribe(function (res) {
-            _this.solde = res.body.solde;
-        }, function (err) {
-            console.log(err);
+        return new Promise(function (resolve, reject) {
+            _this.bankservice.get().subscribe(function (res) {
+                _this.solde = res.body.solde;
+                resolve();
+            }, function (err) {
+                console.log(err);
+                reject();
+            });
         });
     };
     ProfilepageComponent.prototype.isInPrefServices = function (service) {
@@ -2002,54 +2056,74 @@ var ProfilepageComponent = /** @class */ (function () {
     };
     ProfilepageComponent.prototype.updatePrefService = function (service) {
         var _this = this;
+        this.spinner.show();
         var data = {
             service: service
         };
         this.preferenceservice.updatePrefService(data).subscribe(function (data) {
-            console.log(data);
-            _this.fetcPrefServices();
-        }, function (err) { return console.log(err); });
+            Promise.all([_this.fetcPrefServices()]).then(function () {
+                _this.spinner.hide();
+            }).catch(function (err) {
+                _this.spinner.hide();
+                console.log(err);
+            });
+        }, function (err) { _this.spinner.hide(); console.log(err); });
     };
     ProfilepageComponent.prototype.updatePrefEmp = function (emp) {
         var _this = this;
+        this.spinner.show();
         var data = {
             employee: emp
         };
         this.preferenceservice.updatePrefEmp(data).subscribe(function (data) {
-            console.log(data);
-            _this.fetcPrefEmps();
-        }, function (err) { return console.log(err); });
+            Promise.all([_this.fetcPrefEmps()]).then(function () {
+                _this.spinner.hide();
+            }).catch(function (err) {
+                _this.spinner.hide();
+                console.log(err);
+            });
+        }, function (err) { _this.spinner.hide(); console.log(err); });
     };
     ProfilepageComponent.prototype.fetchServices = function () {
         var _this = this;
-        this.serviceservice.getServices().subscribe(function (data) {
-            _this.services = data.services;
-            console.log(data);
-        }, function (err) { return console.log(err); });
+        return new Promise(function (resolve, reject) {
+            _this.serviceservice.getServices().subscribe(function (data) {
+                _this.services = data.services;
+                resolve();
+            }, function (err) { reject(); console.log(err); });
+        });
     };
     ProfilepageComponent.prototype.fetchEmployees = function () {
         var _this = this;
-        this.userService.getEmployees().subscribe(function (data) {
-            console.log(data.body.employees);
-            _this.employees = data.body.employees;
+        return new Promise(function (resolve, reject) {
+            _this.userService.getEmployees().subscribe(function (data) {
+                _this.employees = data.body.employees;
+                resolve();
+            }, function (err) { reject(); console.log(err); });
         });
     };
     ProfilepageComponent.prototype.fetcPrefServices = function () {
         var _this = this;
-        this.preferenceservice.getPrefServices().subscribe(function (res) {
-            _this.prefServices = res.body.prefServices;
-            console.log(res);
-        }, function (err) {
-            console.log(err);
+        return new Promise(function (resolve, reject) {
+            _this.preferenceservice.getPrefServices().subscribe(function (res) {
+                _this.prefServices = res.body.prefServices;
+                resolve();
+            }, function (err) {
+                console.log(err);
+                reject();
+            });
         });
     };
     ProfilepageComponent.prototype.fetcPrefEmps = function () {
         var _this = this;
-        this.preferenceservice.getPrefEmps().subscribe(function (res) {
-            _this.prefEmps = res.body.prefEmps;
-            console.log(res);
-        }, function (err) {
-            console.log(err);
+        return new Promise(function (resolve, reject) {
+            _this.preferenceservice.getPrefEmps().subscribe(function (res) {
+                _this.prefEmps = res.body.prefEmps;
+                resolve();
+            }, function (err) {
+                console.log(err);
+                reject();
+            });
         });
     };
     ProfilepageComponent.prototype.ngOnDestroy = function () {
@@ -2057,35 +2131,52 @@ var ProfilepageComponent = /** @class */ (function () {
         body.classList.remove("profile-page");
     };
     ProfilepageComponent.prototype.flipDateSort = function () {
+        var _this = this;
+        this.spinner.show();
         this.dateSort = this.dateSort * -1;
         this.page = 1;
-        this.fetchRdv(1);
+        Promise.all([this.fetchRdv(1)]).then(function () {
+            _this.spinner.hide();
+        }).catch(function (err) {
+            _this.spinner.hide();
+            console.log(err);
+        });
     };
     ProfilepageComponent.prototype.fetchRdv = function (page) {
         var _this = this;
-        var today = new Date();
-        var dateInit = today.toISOString();
-        var dateFin = new Date("20100-12-12").toISOString();
-        this.rdvservice.getRdv({ 'dateInit': dateInit, 'dateFin': dateFin, 'limit': this.limit, 'page': page, 'dateSort': this.dateSort }).subscribe(function (response) {
-            if (_this.page == 1) {
-                _this.rdvs = response.body.rdvs;
-                console.log(response.body.rdvs);
-            }
-            else {
-                _this.rdvs = _this.rdvs.concat(response.body.rdvs);
-            }
-            _this.totalPages = response.body.totalPages;
-        }, function (error) {
-            console.log(error);
+        return new Promise(function (resolve, reject) {
+            var today = new Date();
+            var dateInit = today.toISOString();
+            var dateFin = new Date("20100-12-12").toISOString();
+            _this.rdvservice.getRdv({ 'dateInit': dateInit, 'dateFin': dateFin, 'limit': _this.limit, 'page': page, 'dateSort': _this.dateSort }).subscribe(function (response) {
+                if (_this.page == 1) {
+                    _this.rdvs = response.body.rdvs;
+                    console.log(response.body.rdvs);
+                }
+                else {
+                    _this.rdvs = _this.rdvs.concat(response.body.rdvs);
+                }
+                _this.totalPages = response.body.totalPages;
+                resolve();
+            }, function (error) {
+                console.log(error);
+                reject();
+            });
         });
     };
     ProfilepageComponent.prototype.onContainerScroll = function () {
+        var _this = this;
         var container = document.querySelector('.scrollable-table-container');
         if (container) {
             if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
                 if (this.page < this.totalPages) {
                     this.page += 1;
-                    this.fetchRdv(this.page);
+                    Promise.all([this.spinner.show(), this.fetchRdv(this.page)]).then(function () {
+                        _this.spinner.hide();
+                    }).catch(function (err) {
+                        _this.spinner.hide();
+                        console.log(err);
+                    });
                 }
             }
         }
@@ -2104,46 +2195,57 @@ var ProfilepageComponent = /** @class */ (function () {
     // }
     ProfilepageComponent.prototype.delete = function () {
         var _this = this;
+        this.spinner.show();
         this.rdvservice.delete(this.temp).subscribe(function (response) {
             console.log(response);
             _this.page = 1;
-            _this.fetchRdv(1);
+            Promise.all([_this.fetchRdv(1)]).then(function () {
+                _this.spinner.hide();
+            }).catch(function (err) {
+                _this.spinner.hide();
+                console.log(err);
+            });
             _this.temp = '';
-        }, function (error) { console.log(error); });
+        }, function (error) { _this.spinner.hide(); console.log(error); });
     };
     ProfilepageComponent.prototype.fetchEmp = function () {
         var _this = this;
-        this.userService.myProfile().subscribe(function (data) {
-            _this.user = data.body.employee;
-            console.log(_this.user.lastName);
-            var base64Image = data.body.profilePicture;
-            var byteCharacters = atob(base64Image);
-            var byteNumbers = new Array(byteCharacters.length);
-            for (var i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            var byteArray = new Uint8Array(byteNumbers);
-            var blob = new Blob([byteArray], { type: 'image/jpeg' });
-            var imageFile = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
-            _this.image = _this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(imageFile));
-            _this.files = [];
-            _this.files.push(imageFile);
-            console.log(_this.files[0]);
-        }, function (err) {
-            _this.userService.logout().subscribe(function (response) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('username');
-                _this.route.navigate(['/login']);
+        return new Promise(function (resolve, reject) {
+            _this.userService.myProfile().subscribe(function (data) {
+                _this.user = data.body.employee;
+                console.log(_this.user.lastName);
+                var base64Image = data.body.profilePicture;
+                var byteCharacters = atob(base64Image);
+                var byteNumbers = new Array(byteCharacters.length);
+                for (var i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                var byteArray = new Uint8Array(byteNumbers);
+                var blob = new Blob([byteArray], { type: 'image/jpeg' });
+                var imageFile = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
+                _this.image = _this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(imageFile));
+                _this.files = [];
+                _this.files.push(imageFile);
+                console.log(_this.files[0]);
+                resolve();
             }, function (err) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('username');
-                _this.route.navigate(['/login']);
+                _this.userService.logout().subscribe(function (response) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('username');
+                    _this.route.navigate(['/login']);
+                }, function (err) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('username');
+                    _this.route.navigate(['/login']);
+                    console.log(err);
+                });
                 console.log(err);
+                reject();
             });
-            console.log(err);
         });
     };
     ProfilepageComponent.ctorParameters = function () { return [
+        { type: ngx_spinner__WEBPACK_IMPORTED_MODULE_11__["NgxSpinnerService"] },
         { type: src_app_services_rdv_service__WEBPACK_IMPORTED_MODULE_4__["RdvService"] },
         { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] },
         { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__["DomSanitizer"] },
@@ -2158,7 +2260,7 @@ var ProfilepageComponent = /** @class */ (function () {
             template: _raw_loader_profilepage_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
             styles: [_profilepage_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
         }),
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [src_app_services_rdv_service__WEBPACK_IMPORTED_MODULE_4__["RdvService"], src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__["DomSanitizer"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], _services_preference_service__WEBPACK_IMPORTED_MODULE_8__["PreferenceService"], src_app_services_service_service__WEBPACK_IMPORTED_MODULE_9__["ServiceService"], _services_bank_service__WEBPACK_IMPORTED_MODULE_10__["BankService"]])
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [ngx_spinner__WEBPACK_IMPORTED_MODULE_11__["NgxSpinnerService"], src_app_services_rdv_service__WEBPACK_IMPORTED_MODULE_4__["RdvService"], src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__["DomSanitizer"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], _services_preference_service__WEBPACK_IMPORTED_MODULE_8__["PreferenceService"], src_app_services_service_service__WEBPACK_IMPORTED_MODULE_9__["ServiceService"], _services_bank_service__WEBPACK_IMPORTED_MODULE_10__["BankService"]])
     ], ProfilepageComponent);
     return ProfilepageComponent;
 }());
